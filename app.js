@@ -31,7 +31,7 @@ container.addEventListener("click", () => {
   const bufferLength = analyser.frequencyBinCount; //detail of frequency
   const dataArray = new Uint8Array(bufferLength); //converting to array of 8 bit int
 
-  const barWidth = canvas.width / bufferLength;
+  const barWidth = canvas.width / 2 / bufferLength;
   let barHeight; //changes according to music
   let x;
 
@@ -63,7 +63,7 @@ file.addEventListener("change", () => {
   const bufferLength = analyser.frequencyBinCount; //detail of frequency
   const dataArray = new Uint8Array(bufferLength); //converting to array of 8 bit int
 
-  const barWidth = canvas.width / bufferLength;
+  const barWidth = canvas.width / 2 / bufferLength;
   let barHeight; //changes according to music
   let x;
 
@@ -79,8 +79,25 @@ file.addEventListener("change", () => {
 });
 
 const drawVisualiser = (bufferLength, x, barWidth, barHeight, dataArray) => {
+  //draws left side
   for (let i = 0; i < bufferLength; i++) {
-    barHeight = dataArray[i]; //louder sounds produce longer bars
+    barHeight = dataArray[i] * 1.5; //louder sounds produce longer bars
+    //changing color based on freq values
+    const red = (i * barHeight) / 15;
+    const green = barHeight / 1.3;
+    const blue = (i * 10) / barHeight;
+    canvasCtx.fillStyle = `rgb(${red},${green},${blue})`;
+    canvasCtx.fillRect(
+      canvas.width / 2 - x,
+      canvas.height - barHeight,
+      barWidth,
+      barHeight
+    );
+    x += barWidth;
+  }
+  //draws right side
+  for (let i = 0; i < bufferLength; i++) {
+    barHeight = dataArray[i] * 1.5; //louder sounds produce longer bars
 
     //changing color based on freq values
     const red = (i * barHeight) / 15;
