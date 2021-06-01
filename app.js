@@ -86,6 +86,13 @@ const drawVisualiser = (bufferLength, x, barWidth, barHeight, dataArray) => {
     const red = (i * barHeight) / 15;
     const green = barHeight / 1.3;
     const blue = (i * 10) / barHeight;
+    canvasCtx.fillStyle = "#333";
+    canvasCtx.fillRect(
+      canvas.width / 2 - x,
+      canvas.height - barHeight - 30,
+      barWidth,
+      15
+    );
     canvasCtx.fillStyle = `rgb(${red},${green},${blue})`;
     canvasCtx.fillRect(
       canvas.width / 2 - x,
@@ -103,6 +110,8 @@ const drawVisualiser = (bufferLength, x, barWidth, barHeight, dataArray) => {
     const red = (i * barHeight) / 15;
     const green = barHeight / 1.3;
     const blue = (i * 10) / barHeight;
+    canvasCtx.fillStyle = "#333";
+    canvasCtx.fillRect(x, canvas.height - barHeight - 30, barWidth, 15);
     canvasCtx.fillStyle = `rgb(${red},${green},${blue})`;
     canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
     x += barWidth;
