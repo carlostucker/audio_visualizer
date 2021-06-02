@@ -86,12 +86,10 @@ const drawVisualiser = (bufferLength, x, barWidth, barHeight, dataArray) => {
     canvasCtx.translate(canvas.width / 2, canvas.height / 2);
     canvasCtx.rotate((i * (Math.PI * 2)) / bufferLength);
     //changing color based on freq values
-    const red = (i * barHeight) / 15;
-    const green = barHeight / 1.3;
-    const blue = (i * 10) / barHeight;
-    canvasCtx.fillStyle = "#333";
-    canvasCtx.fillRect(0, barHeight, barWidth, 15);
-    canvasCtx.fillStyle = `rgb(${red},${green},${blue})`;
+    const hue = i * 15;
+    // canvasCtx.fillStyle = "#333";
+    // canvasCtx.fillRect(0, barHeight, barWidth, 15);
+    canvasCtx.fillStyle = `hsl(${hue}, 100%, 50%)`;
     canvasCtx.fillRect(0, 0, barWidth, barHeight);
     x += barWidth;
     canvasCtx.restore();
