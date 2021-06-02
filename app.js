@@ -27,11 +27,11 @@ container.addEventListener("click", () => {
   analyser = audioCtx.createAnalyser(); //something about frequency and timing data
   audioSource.connect(analyser);
   analyser.connect(audioCtx.destination);
-  analyser.fftSize = 64; //number of audio samples
+  analyser.fftSize = 512; //number of audio samples
   const bufferLength = analyser.frequencyBinCount; //detail of frequency
   const dataArray = new Uint8Array(bufferLength); //converting to array of 8 bit int
 
-  const barWidth = canvas.width / 2 / bufferLength;
+  const barWidth = 9;
   let barHeight; //changes according to music
   let x;
 
@@ -59,11 +59,11 @@ file.addEventListener("change", () => {
   analyser = audioCtx.createAnalyser(); //something about frequency and timing data
   audioSource.connect(analyser);
   analyser.connect(audioCtx.destination);
-  analyser.fftSize = 64; //number of audio samples
+  analyser.fftSize = 512; //number of audio samples
   const bufferLength = analyser.frequencyBinCount; //detail of frequency
   const dataArray = new Uint8Array(bufferLength); //converting to array of 8 bit int
 
-  const barWidth = canvas.width / 2 / bufferLength;
+  const barWidth = 9;
   let barHeight; //changes according to music
   let x;
 
@@ -81,15 +81,15 @@ file.addEventListener("change", () => {
 const drawVisualiser = (bufferLength, x, barWidth, barHeight, dataArray) => {
   //draws left side
   for (let i = 0; i < bufferLength; i++) {
-    barHeight = dataArray[i]; //louder sounds produce longer bars
+    barHeight = dataArray[i] * 5; //louder sounds produce longer bars
     canvasCtx.save();
     canvasCtx.translate(canvas.width / 2, canvas.height / 2);
-    canvasCtx.rotate((i * (Math.PI * 2)) / bufferLength);
+    canvasCtx.rotate(i + (Math.PI * 6.2) / bufferLength);
     //changing color based on freq values
-    const hue = i * 15;
-    // canvasCtx.fillStyle = "#333";
-    // canvasCtx.fillRect(0, barHeight, barWidth, 15);
-    canvasCtx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+    const hue = i * -0.9;
+    canvasCtx.fillStyle = `hsl(${hue}, 90%, ${0}%)`;
+    canvasCtx.fillRect(0, barHeight, barWidth, 50);
+    canvasCtx.fillStyle = `hsl(${hue}, 100%, ${50}%)`;
     canvasCtx.fillRect(0, 0, barWidth, barHeight);
     x += barWidth;
     canvasCtx.restore();
